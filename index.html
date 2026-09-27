@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIOLOGÍA - Alteraciones Cromosómicas y Técnicas de Bandeo (UCCuyo)</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- KaTeX for ultra-fast LaTeX formulas -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Outfit & JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+        /* Paleta Institucional Verde Oliva UCCuyo */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+        
+        .focus-accent:focus {
+            border-color: #436600;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 102, 0, 0.2);
+        }
+        
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+        
+        .band-pattern {
+            background-size: 100% 24px;
+            background-repeat: repeat-y;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-xs sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                    B
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold text-gray-800 tracking-wide uppercase">BIOLOGÍA</h1>
+                    <p class="text-xs text-gray-500 font-semibold">PreMédico (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            <!-- Botón de Guía de Estudio -->
+            <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                <i class="fa-solid fa-graduation-cap"></i>
+                Guía de Uso
+            </button>
+        </div>
+    </header>
+
+    <!-- Contenido Principal con Menú Lateral -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Menú de Navegación Lateral -->
+        <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+            <button onclick="switchTab('tab-estructurales')" id="btn-tab-estructurales" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition">
+                1. Alteraciones Estructurales
+            </button>
+            <button onclick="switchTab('tab-euploidias')" id="btn-tab-euploidias" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition">
+                2. Euploidías & Poliploidía
+            </button>
+            <button onclick="switchTab('tab-aneuploidias')" id="btn-tab-aneuploidias" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition">
+                3. No Disyunción & Aneuploidías
+            </button>
+            <button onclick="switchTab('tab-bandeo')" id="btn-tab-bandeo" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition">
+                4. Técnicas de Bandeo
+            </button>
+        </nav>
+
+        <!-- Contenedores de Sección -->
+        <div class="flex-1 overflow-hidden space-y-6">
+
+            <!-- ==================== TAB 1: ALTERACIONES ESTRUCTURALES ==================== -->
+            <section id="tab-estructurales" class="tab-content block space-y-6">
+                <!-- Header Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-1 rounded-md border border-accent/20">Módulo 1</span>
+                            <h2 class="text-xl font-bold text-gray-800 mt-1">Alteraciones Cromosómicas Estructurales</h2>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-xl border border-slate-200">
+                                <i class="fa-solid fa-dna text-accent mr-1"></i> Ruptura y Reordenamiento
+                            </span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        Modificaciones en la arquitectura o disposición interna de los segmentos de un cromosoma debidas a rupturas de la doble hebra de ADN seguidas de mecanismos de reparación enzimática erróneos o anómalos.
+                    </p>
+                </div>
+
+                <!-- Clasificación: Equilibradas vs No Equilibradas -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-4">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-gray-100">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-800 flex items-center gap-2">
+                                <i class="fa-solid fa-scale-balanced text-accent"></i> Clasificación por Contenido Genético
+                            </h3>
+                            <p class="text-xs text-gray-500">Impacto en el fenotipo del portador vs. riesgo en la progenie.</p>
+                        </div>
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button onclick="setBalanceType('eq')" id="eq-btn" class="flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-accent text-white transition shadow-xs">
+                                Equilibrada (Balanceada)
+                            </button>
+                            <button onclick="setBalanceType('neq')" id="neq-btn" class="flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                                No Equilibrada (No Balanceada)
+                            </button>
+                        </div>
+                    </div>
+
+                    <div id="balance-desc" class="p-4 rounded-xl border border-accent/20 bg-accent-light text-xs text-gray-700 transition">
+                        <div class="flex items-start gap-3">
+                            <div class="w-7 h-7 rounded-lg bg-accent text-white flex items-center justify-center shrink-0 mt-0.5">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <div>
+                                <strong class="text-accent text-sm block mb-1">Alteración Equilibrada (Balanceada)</strong>
+                                <p class="leading-relaxed">
+                                    No existe ganancia ni pérdida neta de material genético esencial. El individuo portador suele presentar un <strong>fenotipo normal</strong> (a menos que el punto de rotura interrumpa un gen vital), pero tiene un alto riesgo reproductivo de formar gametos no balanceados con abortos espontáneos o malformaciones congénitas en su descendencia.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Selector de Tipos de Reordenamientos -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    <div onclick="selectStructuralType('del')" id="card-del" class="cursor-pointer bg-white border-2 border-accent rounded-2xl p-4 shadow-sm transition hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold uppercase bg-accent-light text-accent px-2 py-0.5 rounded-md">Deleción</span>
+                            <i class="fa-solid fa-scissors text-accent"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">Pérdida de Segmento</h4>
+                        <p class="text-xs text-gray-500 mt-1">Terminal o intersticial. Ej.: Síndrome del maullido del gato ($5\text{p}$).</p>
+                    </div>
+
+                    <div onclick="selectStructuralType('dup')" id="card-dup" class="cursor-pointer bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm transition hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold uppercase bg-slate-100 text-gray-700 px-2 py-0.5 rounded-md">Duplicación</span>
+                            <i class="fa-regular fa-copy text-gray-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">Ganancia de Dosis</h4>
+                        <p class="text-xs text-gray-500 mt-1">Repetición génica en tándem por entrecruzamiento desigual.</p>
+                    </div>
+
+                    <div onclick="selectStructuralType('inv')" id="card-inv" class="cursor-pointer bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm transition hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold uppercase bg-slate-100 text-gray-700 px-2 py-0.5 rounded-md">Inversión</span>
+                            <i class="fa-solid fa-arrows-rotate text-gray-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">Giro de $180^\circ$</h4>
+                        <p class="text-xs text-gray-500 mt-1">Pericéntricas (incluyen centrómero) y Paracéntricas (en un solo brazo).</p>
+                    </div>
+
+                    <div onclick="selectStructuralType('tra')" id="card-tra" class="cursor-pointer bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm transition hover:shadow-md">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-xs font-bold uppercase bg-slate-100 text-gray-700 px-2 py-0.5 rounded-md">Translocación</span>
+                            <i class="fa-solid fa-shuffle text-gray-600"></i>
+                        </div>
+                        <h4 class="font-bold text-gray-800 text-sm">Intercambio No Homólogo</h4>
+                        <p class="text-xs text-gray-500 mt-1">Recíprocas y Robertsonianas (fusión de acrocéntricos 13, 14, 15, 21, 22).</p>
+                    </div>
+                </div>
+
+                <!-- Detalle y Visualizador Gráfico Dinámico -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-5">
+                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 pb-4 border-b border-gray-100">
+                        <div>
+                            <span id="detail-tag" class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-0.5 rounded border border-accent/20">Deleción Cromosómica</span>
+                            <h3 id="detail-title" class="text-lg font-bold text-gray-800 mt-1">Síndrome de Deleción $5\text{p}$ (Maullido de Gato / Cri-du-chat)</h3>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <span class="text-xs text-gray-400 font-mono">ISCN:</span>
+                            <span id="detail-iscn" class="text-xs font-mono font-bold text-accent bg-accent-light px-2.5 py-1 rounded-lg border border-accent/30">$46,XX,\text{del}(5)(\text{p}15.2)$</span>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-4 text-xs text-gray-600 leading-relaxed">
+                            <p id="detail-desc">
+                                Consiste en la pérdida de un segmento terminal del brazo corto del cromosoma 5 ($5\text{p}15.2$). Clínicamente cursa con llanto agudo y de tono alto en lactantes semejante al maullido de un gato (por anomalías laríngeas), retraso mental severo, microcefalia, hipertelorismo y fascies lunar.
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200">
+                                    <strong class="text-gray-800 font-semibold block mb-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-microscope text-accent"></i> Mecanismo Patogénico
+                                    </strong>
+                                    <span id="detail-mech">Ruptura terminal o intersticial de la doble cadena con pérdida irremediable del fragmento acéntrico por carecer de cinetocoro.</span>
+                                </div>
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200">
+                                    <strong class="text-gray-800 font-semibold block mb-1 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-stethoscope text-accent"></i> Repercusión Médica
+                                    </strong>
+                                    <span id="detail-clinical">Alteración no equilibrada con monosomía parcial y haploinsuficiencia génica crítica para el neurodesarrollo.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Diagrama Visual SVG Reactivo -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-3">Esquema Morfológico</span>
+                            <div id="svg-diagram-container" class="w-full flex justify-center py-2">
+                                <!-- Render dinámico según tipo -->
+                                <svg width="180" height="150" viewBox="0 0 180 150" class="overflow-visible">
+                                    <!-- Normal -->
+                                    <g transform="translate(40, 10)">
+                                        <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#64748b">Normal</text>
+                                        <rect x="5" y="10" width="20" height="28" rx="4" fill="#436600" opacity="0.9"></rect>
+                                        <circle cx="15" cy="42" r="5" fill="#1e293b"></circle>
+                                        <rect x="5" y="46" width="20" height="70" rx="4" fill="#436600" opacity="0.6"></rect>
+                                        <text x="15" y="27" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">p15</text>
+                                    </g>
+                                    <!-- Flecha de corte -->
+                                    <path d="M 75 75 L 105 75" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"></path>
+                                    <!-- Con Deleción -->
+                                    <g transform="translate(120, 10)">
+                                        <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">Deleción</text>
+                                        <!-- p amputado -->
+                                        <rect x="5" y="26" width="20" height="12" rx="3" fill="#ef4444" opacity="0.9"></rect>
+                                        <circle cx="15" cy="42" r="5" fill="#1e293b"></circle>
+                                        <rect x="5" y="46" width="20" height="70" rx="4" fill="#436600" opacity="0.6"></rect>
+                                        <!-- Fragmento perdido -->
+                                        <rect x="5" y="2" width="20" height="16" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-dasharray="2,2"></rect>
+                                        <text x="15" y="13" text-anchor="middle" font-size="8" fill="#64748b">Perdido</text>
+                                    </g>
+                                </svg>
+                            </div>
+                            <span id="svg-caption" class="text-[10px] text-gray-500 font-mono text-center mt-2">Pérdida del fragmento acéntrico p15.2</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 2: EUPLOIDÍAS & POLIPLOIDÍA ==================== -->
+            <section id="tab-euploidias" class="tab-content hidden space-y-6">
+                <!-- Header Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-1 rounded-md border border-accent/20">Módulo 2</span>
+                            <h2 class="text-xl font-bold text-gray-800 mt-1">Euploidías y Poliploidías Humanas</h2>
+                        </div>
+                        <span class="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-xl border border-slate-200">
+                            Múltiplos del número monoploide ($n=23$)
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        Alteraciones numéricas en las que se modifican <strong>juegos cromosómicos completos</strong>. En la especie humana son letales en etapas embrionarias tempranas y constituyen una causa mayor de aborto espontáneo de primer trimestre.
+                    </p>
+                </div>
+
+                <!-- Grid de Estados Euploides -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Haploidía -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold uppercase bg-slate-100 text-gray-700 px-2.5 py-1 rounded-md">Fisiológico</span>
+                                <span class="text-xs font-mono font-bold text-accent">n = 23</span>
+                            </div>
+                            <h3 class="text-base font-bold text-gray-800 mt-2">Haploidía ($n$)</h3>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Dotación simple normal y fisiológica presente de manera exclusiva en los gametos maduros humanos (espermatozoide u ovocito secundario) tras la meiosis reduccional.
+                            </p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-gray-200 text-xs">
+                            <span class="font-semibold text-gray-800 block">Composición:</span>
+                            <span class="text-accent font-mono font-bold">$22$ autosomas + $1$ gonosoma ($X$ o $Y$)</span>
+                        </div>
+                    </div>
+
+                    <!-- Triploidía -->
+                    <div class="bg-white p-5 rounded-2xl border-2 border-accent/30 shadow-sm space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold uppercase bg-accent-light text-accent px-2.5 py-1 rounded-md">Poliploidía</span>
+                                <span class="text-xs font-mono font-bold text-accent">3n = 69</span>
+                            </div>
+                            <h3 class="text-base font-bold text-gray-800 mt-2">Triploidía ($3n$)</h3>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Presencia de tres juegos haploides completos ($69$ cromosomas). Representa el 15-20% de los abortos cromosómicos del primer trimestre. Se origina comúnmente por <strong>dispermia</strong> (fecundación de un óvulo por dos espermatozoides).
+                            </p>
+                        </div>
+                        <div class="p-3 bg-accent-light rounded-xl border border-accent/20 text-xs">
+                            <span class="font-semibold text-gray-800 block">Fórmulas típicas:</span>
+                            <span class="text-accent font-mono font-bold">$69,XXY$ / $69,XXX$ / $69,XYY$</span>
+                        </div>
+                    </div>
+
+                    <!-- Tetraploidía -->
+                    <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-3 flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-xs font-bold uppercase bg-rose-50 text-rose-700 px-2.5 py-1 rounded-md">Letal Temprana</span>
+                                <span class="text-xs font-mono font-bold text-rose-700">4n = 92</span>
+                            </div>
+                            <h3 class="text-base font-bold text-gray-800 mt-2">Tetraploidía ($4n$)</h3>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Cuatro dotaciones cromosómicas completas ($92$ cromosomas). Típicamente producida por la duplicación del genoma diploide sin citocinesis en la primera división de segmentación del cigoto (endomitosis).
+                            </p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded-xl border border-gray-200 text-xs">
+                            <span class="font-semibold text-gray-800 block">Fórmulas habituales:</span>
+                            <span class="text-rose-700 font-mono font-bold">$92,XXXX$ o $92,XXYY$</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Comparativa Clínica: Humanos vs. Vegetales -->
+                <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm">
+                    <h3 class="text-sm font-bold text-gray-800 mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-seedling text-accent"></i> Correlación Biológica para el Ingreso a Medicina
+                    </h3>
+                    <p class="text-xs text-gray-600 leading-relaxed">
+                        A diferencia de la botánica y agronomía, donde las poliploidías ($3n, 4n, 6n$) son viables, vigorosas y seleccionadas por conferir mayor tamaño celular a flores y frutos (ej. trigo hexaploide, bananas triploides estériles), en la especie humana los desbalances masivos de dosis génica colapsan la embriogénesis y dan lugar a abortos tempranos o molas hidatiformes parciales.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 3: NO DISYUNCIÓN & ANEUPLOIDÍAS ==================== -->
+            <section id="tab-aneuploidias" class="tab-content hidden space-y-6">
+                <!-- Header Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-1 rounded-md border border-accent/20">Módulo 3</span>
+                            <h2 class="text-xl font-bold text-gray-800 mt-1">Aneuploidías y Simulador de No Disyunción</h2>
+                        </div>
+                        <span class="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-xl border border-slate-200">
+                            Pérdida o ganancia de cromosomas individuales ($2n \pm 1$)
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        La no disyunción es el fallo en la segregación adecuada de los cromosomas homólogos (en Meiosis I) o de las cromátidas hermanas (en Meiosis II), originando gametos disómicos ($n+1$) o nulisómicos ($n-1$).
+                    </p>
+                </div>
+
+                <!-- Simulador Meiosis I vs Meiosis II -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-5">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-3 border-b border-gray-100">
+                        <div>
+                            <h3 class="text-sm font-bold text-gray-800 flex items-center gap-2">
+                                <i class="fa-solid fa-diagram-project text-accent"></i> Simulador de Segregación Meiótica Anómala
+                            </h3>
+                            <p class="text-xs text-gray-500">Seleccione la fase de error para calcular las frecuencias gaméticas teóricas.</p>
+                        </div>
+                        <div class="flex gap-2 w-full sm:w-auto">
+                            <button onclick="simulateNondisjunction('m1')" id="nd-m1" class="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-accent text-white transition shadow-xs">
+                                No Disyunción en Meiosis I
+                            </button>
+                            <button onclick="simulateNondisjunction('m2')" id="nd-m2" class="flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition">
+                                No Disyunción en Meiosis II
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Panel de Resultados del Simulador -->
+                    <div id="nd-result" class="space-y-4">
+                        <div class="p-4 bg-slate-50 rounded-xl border border-gray-200">
+                            <div class="flex items-center justify-between">
+                                <h4 class="font-bold text-gray-800 text-xs sm:text-sm">Fallo en Meiosis I: No se separan los Cromosomas Homólogos</h4>
+                                <span class="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">100% Gametos Anómalos</span>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                                Los dos cromosomas homólogos migran conjuntamente hacia un único polo del huso acromático. Todas las células hijas resultantes de la meiosis presentarán aberración en su dotación cromosómica.
+                            </p>
+                        </div>
+
+                        <!-- Gametos generados -->
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                            <div class="p-3 bg-accent-light rounded-xl border border-accent/20">
+                                <span class="text-xs font-bold text-gray-700 block">Gameto 1</span>
+                                <span class="text-sm font-mono font-bold text-accent my-1 block">n + 1</span>
+                                <span class="text-[10px] text-gray-500 block">Disómico (fecundado $\rightarrow$ Trisomía $2n+1$)</span>
+                            </div>
+                            <div class="p-3 bg-accent-light rounded-xl border border-accent/20">
+                                <span class="text-xs font-bold text-gray-700 block">Gameto 2</span>
+                                <span class="text-sm font-mono font-bold text-accent my-1 block">n + 1</span>
+                                <span class="text-[10px] text-gray-500 block">Disómico (fecundado $\rightarrow$ Trisomía $2n+1$)</span>
+                            </div>
+                            <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                                <span class="text-xs font-bold text-gray-700 block">Gameto 3</span>
+                                <span class="text-sm font-mono font-bold text-rose-700 my-1 block">n - 1</span>
+                                <span class="text-[10px] text-gray-500 block">Nulisómico (fecundado $\rightarrow$ Monosomía $2n-1$)</span>
+                            </div>
+                            <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                                <span class="text-xs font-bold text-gray-700 block">Gameto 4</span>
+                                <span class="text-sm font-mono font-bold text-rose-700 my-1 block">n - 1</span>
+                                <span class="text-[10px] text-gray-500 block">Nulisómico (fecundado $\rightarrow$ Monosomía $2n-1$)</span>
+                            </div>
+                        </div>
+
+                        <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+                            <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                            <span><strong>Conclusión de Examen:</strong> La no disyunción en Meiosis I produce un <strong>50% de gametos disómicos ($n+1$)</strong> y un <strong>50% nulisómicos ($n-1$)</strong>. No se genera ningún gameto normal.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel de Trisomías Autosómicas y Sexuales -->
+                <div class="space-y-4">
+                    <h3 class="text-sm font-bold text-gray-800 flex items-center gap-2">
+                        <i class="fa-solid fa-hospital-user text-accent"></i> Aneuploidías de Mayor Prevalencia Clínica
+                    </h3>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Down -->
+                        <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase bg-accent-light text-accent px-2 py-0.5 rounded">Trisomía 21</span>
+                                <span class="text-xs font-mono font-bold text-accent">47,XX,+21</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Síndrome de Down</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Causa más frecuente de discapacidad intelectual de origen genético. Hipotonía neonatal, pliegue palmar simiesco, cardiopatía congénita (canal AV). Correlación directa con la edad materna avanzada.
+                            </p>
+                        </div>
+
+                        <!-- Edwards -->
+                        <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase bg-slate-100 text-gray-700 px-2 py-0.5 rounded">Trisomía 18</span>
+                                <span class="text-xs font-mono font-bold text-gray-700">47,XX,+18</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Síndrome de Edwards</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Micrognatia, occipucio prominente, manos empuñadas con dedos cabalgados (2° sobre 3° y 5° sobre 4°), pies en mecedora y cardiopatías graves. Supervivencia promedio inferior a 1 año.
+                            </p>
+                        </div>
+
+                        <!-- Patau -->
+                        <div class="bg-white p-4 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase bg-slate-100 text-gray-700 px-2 py-0.5 rounded">Trisomía 13</span>
+                                <span class="text-xs font-mono font-bold text-gray-700">47,XY,+13</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Síndrome de Patau</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Defectos graves de la línea media: holoprosencefalia, labio leporino con fisura palatina bilateral, microftalmía y polidactilia postaxial. Alta mortalidad neonatal.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Sexuales: Turner y Klinefelter -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase bg-accent-light text-accent px-2 py-0.5 rounded">Monosomía X</span>
+                                <span class="text-xs font-mono font-bold text-accent">45,X</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Síndrome de Turner</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Única monosomía viable en humanos. Fenotipo femenino, talla baja, disgenesia gonadal con cintillas fibrosas (amenorrea primaria y esterilidad), cuello alado (pterygium colli) y coartación de la aorta. Ausencia de corpúsculo de Barr.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-bold uppercase bg-purple-50 text-purple-700 px-2 py-0.5 rounded">Trisomía Gonosómica</span>
+                                <span class="text-xs font-mono font-bold text-purple-700">47,XXY</span>
+                            </div>
+                            <h4 class="font-bold text-gray-800 text-sm">Síndrome de Klinefelter</h4>
+                            <p class="text-xs text-gray-600 leading-relaxed">
+                                Varones con hipogonadismo hipergonadotrópico, atrofia testicular, azoospermia con infertilidad, hábito eunucoide (extremidades largas), ginecomastia y presencia de un corpúsculo de Barr en células epiteliales.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==================== TAB 4: TÉCNICAS DE BANDEO ==================== -->
+            <section id="tab-bandeo" class="tab-content hidden space-y-6">
+                <!-- Header Card -->
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-2">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-1 rounded-md border border-accent/20">Módulo 4</span>
+                            <h2 class="text-xl font-bold text-gray-800 mt-1">Técnicas de Bandeo Cromosómico</h2>
+                        </div>
+                        <span class="text-xs bg-slate-100 text-slate-700 font-semibold px-3 py-1.5 rounded-xl border border-slate-200">
+                            Identificación de Microdeleciones y Rearreglos
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-500 leading-relaxed">
+                        Permiten teñir diferencialmente los cromosomas a lo largo de su eje longitudinal en bandas transversales claras y oscuras, posibilitando la individualización precisa de cada par homólogo más allá de su tamaño y centrómero.
+                    </p>
+                </div>
+
+                <!-- Comparador de Bandeo -->
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                    <button onclick="selectBanding('g')" id="band-btn-g" class="p-4 rounded-2xl border-2 border-accent bg-accent-light text-left transition shadow-xs">
+                        <span class="text-[10px] font-bold uppercase text-accent block">Estándar Clínico</span>
+                        <h4 class="font-bold text-gray-800 text-sm mt-1">Bandeo G (Giemsa)</h4>
+                        <p class="text-xs text-gray-500 mt-1">Tripsina + Giemsa</p>
+                    </button>
+
+                    <button onclick="selectBanding('q')" id="band-btn-q" class="p-4 rounded-2xl border-2 border-gray-200 bg-white text-left transition hover:border-gray-300">
+                        <span class="text-[10px] font-bold uppercase text-gray-500 block">Fluorescencia</span>
+                        <h4 class="font-bold text-gray-800 text-sm mt-1">Bandeo Q (Quinacrina)</h4>
+                        <p class="text-xs text-gray-500 mt-1">Luz Ultravioleta</p>
+                    </button>
+
+                    <button onclick="selectBanding('r')" id="band-btn-r" class="p-4 rounded-2xl border-2 border-gray-200 bg-white text-left transition hover:border-gray-300">
+                        <span class="text-[10px] font-bold uppercase text-gray-500 block">Patrón Reverso</span>
+                        <h4 class="font-bold text-gray-800 text-sm mt-1">Bandeo R (Reverso)</h4>
+                        <p class="text-xs text-gray-500 mt-1">Desnaturalización Térmica</p>
+                    </button>
+
+                    <button onclick="selectBanding('c')" id="band-btn-c" class="p-4 rounded-2xl border-2 border-gray-200 bg-white text-left transition hover:border-gray-300">
+                        <span class="text-[10px] font-bold uppercase text-gray-500 block">Centromérico</span>
+                        <h4 class="font-bold text-gray-800 text-sm mt-1">Bandeo C (Constitutivo)</h4>
+                        <p class="text-xs text-gray-500 mt-1">Heterocromatina Constitutiva</p>
+                    </button>
+                </div>
+
+                <!-- Tarjeta de Detalle del Bandeo Seleccionado -->
+                <div class="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-5">
+                    <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 pb-4 border-b border-gray-100">
+                        <div>
+                            <span id="band-badge" class="text-xs font-bold uppercase tracking-wider text-accent bg-accent-light px-2.5 py-0.5 rounded border border-accent/20">Estándar Clínico</span>
+                            <h3 id="band-title" class="text-lg font-bold text-gray-800 mt-1">Bandeo G (Giemsa)</h3>
+                        </div>
+                        <span id="band-prep" class="text-xs font-mono font-bold text-gray-700 bg-slate-100 px-3 py-1 rounded-xl border border-gray-200">
+                            Pretratamiento: Tripsina + Tinción Giemsa
+                        </span>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <div class="lg:col-span-2 space-y-4 text-xs text-gray-600 leading-relaxed">
+                            <p id="band-desc">
+                                Es la técnica citogenética universalmente más empleada para análisis de cariotipo de rutina. El tratamiento enzimático controlado con tripsina desnaturaliza parcialmente las proteínas no histónicas cromosómicas, permitiendo que el colorante Giemsa se una preferentemente a regiones ricas en adenina-timina.
+                            </p>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+                                <div class="p-3.5 bg-slate-50 rounded-xl border border-gray-200">
+                                    <strong class="text-gray-800 font-semibold block mb-1">
+                                        <i class="fa-solid fa-circle text-gray-800 text-[10px] mr-1"></i> Bandas Oscuras
+                                    </strong>
+                                    <span id="band-dark">Ricas en pares de bases $\text{A-T}$. ADN condensado (heterocromatina), pocos genes activos y replicación tardía en fase S.</span>
+                                </div>
+                                <div class="p-3.5 bg-accent-light rounded-xl border border-accent/20">
+                                    <strong class="text-accent font-semibold block mb-1">
+                                        <i class="fa-regular fa-circle text-accent text-[10px] mr-1"></i> Bandas Claras
+                                    </strong>
+                                    <span id="band-light">Ricas en pares $\text{G-C}$. Eucromatina descondensada, alta densidad de genes activos y replicación temprana.</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Simulación Gráfica de Cromosoma Teñido -->
+                        <div class="bg-slate-50 p-4 rounded-xl border border-gray-200 flex flex-col items-center justify-center">
+                            <span class="text-[11px] font-bold text-gray-600 uppercase tracking-wider mb-2">Patrón Citogenético</span>
+                            <div id="band-visual" class="w-14 h-48 rounded-xl border-2 border-gray-400 p-1 flex flex-col justify-between shadow-inner bg-slate-100">
+                                <div class="w-full h-3 bg-gray-900 rounded-xs"></div>
+                                <div class="w-full h-6 bg-gray-800 rounded-xs"></div>
+                                <div class="w-full h-2 bg-gray-300 rounded-xs"></div>
+                                <div class="w-full h-4 bg-gray-900 rounded-xs"></div>
+                                <div class="w-full h-2 bg-gray-400 rounded-xs"></div>
+                                <div class="w-full h-7 bg-gray-900 rounded-xs"></div>
+                                <div class="w-full h-3 bg-gray-300 rounded-xs"></div>
+                            </div>
+                            <span id="band-visual-label" class="text-[10px] text-accent font-mono font-bold mt-2">Bandas A-T (Oscuras) / G-C (Claras)</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+        </div>
+    </main>
+
+    <!-- Footer Institucional Vesalio (Idéntico a U3-01 y U3-02) -->
+    <footer class="bg-white border-t border-gray-200 py-3">
+        <div class="max-w-6xl mx-auto px-4 text-center text-xs text-gray-500 font-semibold tracking-wide">
+            Desarrollado por vesalio - Todos los derechos reservados
+        </div>
+    </footer>
+
+    <!-- Modal Guía de Uso Institucional -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-black/50 backdrop-blur-xs z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-white border border-slate-200 max-w-lg w-full rounded-2xl p-6 shadow-xl space-y-4">
+            <div class="flex items-center justify-between pb-3 border-b border-slate-200">
+                <h3 class="font-bold text-sm text-slate-800 flex items-center space-x-2">
+                    <i class="fa-solid fa-graduation-cap text-accent"></i>
+                    <span>Guía de Uso: Alteraciones Cromosómicas y Bandeo</span>
+                </h3>
+                <button onclick="closeTutorial()" class="text-slate-400 hover:text-slate-600 p-1 rounded-lg">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+            
+            <div class="space-y-3.5 text-xs text-slate-600 leading-relaxed overflow-y-auto max-h-[380px] pr-2 custom-scroll">
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-150">
+                    <strong class="text-accent block mb-1">1. Navegación por Ejes Temáticos</strong>
+                    Explore a través de la barra lateral los 4 módulos esenciales para el curso de ingreso a Medicina: 
+                    <strong>Alteraciones Estructurales</strong>, <strong>Euploidías & Poliploidía</strong>, <strong>No Disyunción & Aneuploidías</strong> y <strong>Técnicas de Bandeo Cromosómico</strong>.
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-150">
+                    <strong class="text-accent block mb-1">2. Alteraciones Estructurales y Balance Genético</strong>
+                    <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                        <li><strong>Equilibradas vs. No Equilibradas:</strong> Alterne con los botones superiores para distinguir el estado balanceado (sin pérdida/ganancia neta de genes; portador con fenotipo normal pero riesgo reproductivo en gametos) del no balanceado (deleciones/duplicaciones con repercusión clínica y malformaciones).</li>
+                        <li><strong>Selector de Reordenamientos:</strong> Haga clic en las tarjetas de <em>Deleción</em> ($5\text{p}15.2$ Cri-du-chat), <em>Duplicación</em> (dosis génica por crossing-over desigual), <em>Inversión</em> (pericéntrica con cambio de índice centromérico vs. paracéntrica en un solo brazo) y <em>Translocación</em> (robertsoniana $\text{der}(14;21)$ entre acrocéntricos vs. recíproca) para visualizar en tiempo real la notación ISCN oficial, mecanismo enzimático y su <strong>esquema cromosómico SVG reactivo</strong>.</li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-150">
+                    <strong class="text-accent block mb-1">3. Euploidías y Poliploidías Humanas</strong>
+                    Analice las alteraciones de juegos cromosómicos completos:
+                    <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                        <li><strong>Haploidía ($n = 23$):</strong> Dotación simple fisiológica en gametos maduros.</li>
+                        <li><strong>Triploidía ($3n = 69$):</strong> Causa mayor de aborto espontáneo precoz ($15-20\%$), frecuentemente debida a <em>dispermia</em> (polispermia) u óvulo no reducido.</li>
+                        <li><strong>Tetraploidía ($4n = 92$):</strong> Letal en estadios embrionarios tempranos por endomitosis en la primera segmentación del cigoto.</li>
+                        <li><strong>Contraste Biológico:</strong> Compare la letalidad absoluta en mamíferos frente al vigor, viabilidad y aplicaciones agronómicas de las poliploidías en el reino vegetal.</li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-150">
+                    <strong class="text-accent block mb-1">4. Simulador de No Disyunción y Cuadros Clínicos</strong>
+                    <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                        <li><strong>Simulador Interactivo de Fases Meióticas:</strong> Alterne entre el fallo en <strong>Meiosis I</strong> (no separación de homólogos $\rightarrow 100\%$ gametos anómalos: $2$ disómicos $n+1$ y $2$ nulisómicos $n-1$) y en <strong>Meiosis II</strong> (no separación de cromátidas hermanas $\rightarrow 50\%$ normales $n$, $25\%$ disómicos $n+1$ y $25\%$ nulisómicos $n-1$).</li>
+                        <li><strong>Aneuploidías Autosómicas:</strong> Revise las fichas con etiología y cuadro médico del Síndrome de Down ($47,XX,+21$ / $47,XY,+21$ y su vínculo con edad materna), Síndrome de Edwards ($47,XX,+18$) y Síndrome de Patau ($47,XY,+13$).</li>
+                        <li><strong>Aneuploidías Sexuales:</strong> Examine el Síndrome de Turner ($45,X$, única monosomía compatible con la vida a término, fenotipo femenino con amenorrea y cuello alado) y el Síndrome de Klinefelter ($47,XXY$, varones con hipogonadismo, hábito eunucoide y corpúsculo de Barr positivo).</li>
+                    </ul>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-xl border border-slate-150">
+                    <strong class="text-accent block mb-1">5. Técnicas de Bandeo Citogenético</strong>
+                    Alterne interactivamente entre las 4 técnicas diagnósticas fundamentales para observar su pretratamiento, reactivos y la animación gráfica de bandas:
+                    <ul class="list-disc list-inside space-y-1 mt-1 pl-1">
+                        <li><strong>Bandeo G (Giemsa):</strong> Tripsina + colorante Giemsa. Bandas oscuras ricas en $\text{A-T}$ (heterocromatina condensada, replicación tardía) y bandas claras ricas en $\text{G-C}$ (eucromatina transcripcional activa).</li>
+                        <li><strong>Bandeo Q (Quinacrina):</strong> Fluorocromo fluorescente UV; bandas brillantes ricas en $\text{A-T}$.</li>
+                        <li><strong>Bandeo R (Reverso):</strong> Desnaturalización térmica en solución salina buffer ($87^\circ\text{C}$); tiñe intensamente las regiones ricas en $\text{G-C}$ (telómeros).</li>
+                        <li><strong>Bandeo C (Centromérico):</strong> Tratamiento con hidróxido de bario ($\text{Ba(OH)}_2$); tiñe exclusivamente la heterocromatina constitutiva centromérica y pericentromérica.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="pt-2 flex justify-end">
+                <button onclick="closeTutorial()" class="w-full bg-accent hover:opacity-90 text-white py-2.5 rounded-xl text-xs font-semibold transition shadow-sm">
+                    ¡Comenzar Estudio!
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts de Interactividad y Renderizado KaTeX -->
+    <script>
+        const state = {
+            currentTab: 'estructurales'
+        };
+
+        // Navigation
+        function switchTab(tabId) {
+            state.currentTab = tabId.replace('tab-', '');
+            const tabs = ['estructurales', 'euploidias', 'aneuploidias', 'bandeo'];
+            tabs.forEach(t => {
+                const btn = document.getElementById('btn-tab-' + t);
+                const content = document.getElementById('tab-' + t);
+                if (t === state.currentTab) {
+                    btn.className = "bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition";
+                    content.classList.remove('hidden');
+                    content.classList.add('block');
+                } else {
+                    btn.className = "text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition";
+                    content.classList.remove('block');
+                    content.classList.add('hidden');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            setTimeout(renderLatex, 50);
+        }
+
+        function openTutorial() {
+            document.getElementById('tutorial-modal').classList.remove('hidden');
+            renderLatex();
+        }
+
+        function closeTutorial() {
+            document.getElementById('tutorial-modal').classList.add('hidden');
+        }
+
+        function renderLatex() {
+            if (window.renderMathInElement) {
+                renderMathInElement(document.body, {
+                    delimiters: [
+                        {left: '$$', right: '$$', display: true},
+                        {left: '$', right: '$', display: false},
+                        {left: '\\(', right: '\\)', display: false}
+                    ],
+                    throwOnError: false
+                });
+            }
+        }
+
+        // Module 1: Balance Type Toggle
+        function setBalanceType(type) {
+            const eqBtn = document.getElementById('eq-btn');
+            const neqBtn = document.getElementById('neq-btn');
+            const desc = document.getElementById('balance-desc');
+
+            if (type === 'eq') {
+                eqBtn.className = "flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-accent text-white transition shadow-xs";
+                neqBtn.className = "flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                desc.className = "p-4 rounded-xl border border-accent/20 bg-accent-light text-xs text-gray-700 transition";
+                desc.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded-lg bg-accent text-white flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-check"></i>
+                        </div>
+                        <div>
+                            <strong class="text-accent text-sm block mb-1">Alteración Equilibrada (Balanceada)</strong>
+                            <p class="leading-relaxed">
+                                No existe ganancia ni pérdida neta de material genético esencial. El individuo portador suele presentar un <strong>fenotipo normal</strong> (a menos que el punto de rotura interrumpa un gen vital), pero tiene un alto riesgo reproductivo de formar gametos no balanceados con abortos espontáneos o malformaciones congénitas en su descendencia.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            } else {
+                neqBtn.className = "flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-rose-600 text-white transition shadow-xs";
+                eqBtn.className = "flex-1 sm:flex-none px-4 py-1.5 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                desc.className = "p-4 rounded-xl border border-rose-200 bg-rose-50 text-xs text-rose-900 transition";
+                desc.innerHTML = `
+                    <div class="flex items-start gap-3">
+                        <div class="w-7 h-7 rounded-lg bg-rose-600 text-white flex items-center justify-center shrink-0 mt-0.5">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                        </div>
+                        <div>
+                            <strong class="text-rose-700 text-sm block mb-1">Alteración No Equilibrada (No Balanceada)</strong>
+                            <p class="leading-relaxed">
+                                Implica la <strong>ganancia o pérdida neta de material genético</strong> (como en deleciones, duplicaciones o cromosomas marcadores). Condiciona casi invariablemente un cuadro clínico patológico manifiesto con malformaciones congénitas múltiples y retraso en el neurodesarrollo.
+                            </p>
+                        </div>
+                    </div>
+                `;
+            }
+            renderLatex();
+        }
+
+        // Structural alteration data & SVG views
+        const structuralData = {
+            del: {
+                tag: "Deleción Cromosómica",
+                title: "Síndrome de Deleción $5\\text{p}$ (Maullido de Gato / Cri-du-chat)",
+                iscn: "$46,XX,\\text{del}(5)(\\text{p}15.2)$",
+                desc: "Consiste en la pérdida de un segmento terminal del brazo corto del cromosoma 5 ($5\\text{p}15.2$). Clínicamente cursa con llanto agudo y de tono alto en lactantes semejante al maullido de un gato (por anomalías laríngeas), retraso mental severo, microcefalia, hipertelorismo y fascies lunar.",
+                mech: "Ruptura terminal o intersticial de la doble cadena con pérdida irremediable del fragmento acéntrico por carecer de cinetocoro.",
+                clinical: "Alteración no equilibrada con monosomía parcial y haploinsuficiencia génica crítica para el neurodesarrollo.",
+                caption: "Pérdida del fragmento acéntrico p15.2",
+                svg: `
+                    <svg width="180" height="150" viewBox="0 0 180 150" class="overflow-visible">
+                        <g transform="translate(40, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#64748b">Normal</text>
+                            <rect x="5" y="10" width="20" height="28" rx="4" fill="#436600" opacity="0.9"></rect>
+                            <circle cx="15" cy="42" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="46" width="20" height="70" rx="4" fill="#436600" opacity="0.6"></rect>
+                            <text x="15" y="27" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">p15</text>
+                        </g>
+                        <path d="M 75 75 L 105 75" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"></path>
+                        <g transform="translate(120, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#dc2626">Deleción</text>
+                            <rect x="5" y="26" width="20" height="12" rx="3" fill="#ef4444" opacity="0.9"></rect>
+                            <circle cx="15" cy="42" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="46" width="20" height="70" rx="4" fill="#436600" opacity="0.6"></rect>
+                            <rect x="5" y="2" width="20" height="16" rx="3" fill="#cbd5e1" stroke="#94a3b8" stroke-dasharray="2,2"></rect>
+                            <text x="15" y="13" text-anchor="middle" font-size="8" fill="#64748b">Perdido</text>
+                        </g>
+                    </svg>
+                `
+            },
+            dup: {
+                tag: "Duplicación Cromosómica",
+                title: "Duplicación Génica y Exceso de Dosificación",
+                iscn: "$46,XY,\\text{dup}(1)(\\text{q}21\\text{q}23)$",
+                desc: "Se produce por la ganancia o repetición de un segmento cromosómico, aumentando el número de copias activas de los genes allí ubicados. Frecuentemente se origina por entrecruzamiento desigual (unequal crossing-over) entre cromátidas homólogas durante la profase I meiótica.",
+                mech: "Alineamiento erróneo y recombinación homóloga no alélica entre secuencias repetitivas del genoma.",
+                clinical: "Alteración no balanceada; en general es mejor tolerada clínicamente que una deleción de idéntico tamaño pero genera dismorfias.",
+                caption: "Segmento repetido en tándem por entrecruzamiento desigual",
+                svg: `
+                    <svg width="180" height="150" viewBox="0 0 180 150" class="overflow-visible">
+                        <g transform="translate(40, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#64748b">Normal</text>
+                            <rect x="5" y="15" width="20" height="20" rx="4" fill="#436600" opacity="0.8"></rect>
+                            <circle cx="15" cy="40" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="45" width="20" height="30" rx="3" fill="#436600" opacity="0.5"></rect>
+                            <rect x="5" y="78" width="20" height="28" rx="3" fill="#436600" opacity="0.8"></rect>
+                        </g>
+                        <path d="M 75 75 L 105 75" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"></path>
+                        <g transform="translate(120, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#0284c7">Duplicación</text>
+                            <rect x="5" y="15" width="20" height="20" rx="4" fill="#436600" opacity="0.8"></rect>
+                            <circle cx="15" cy="40" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="45" width="20" height="24" rx="3" fill="#0284c7" opacity="0.9"></rect>
+                            <rect x="5" y="72" width="20" height="24" rx="3" fill="#0284c7" opacity="0.9"></rect>
+                            <rect x="5" y="99" width="20" height="24" rx="3" fill="#436600" opacity="0.8"></rect>
+                            <text x="15" y="60" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold">Cop 1</text>
+                            <text x="15" y="87" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold">Cop 2</text>
+                        </g>
+                    </svg>
+                `
+            },
+            inv: {
+                tag: "Inversión Cromosómica",
+                title: "Inversiones Pericéntricas y Paracéntricas",
+                iscn: "$46,XX,\\text{inv}(9)(\\text{p}12\\text{q}13)$",
+                desc: "Implica dos rupturas en el mismo cromosoma seguidas de la rotación de $180^\\circ$ del segmento y su reinserción. Si incluye al centrómero es PERICÉNTRICA (puede alterar el índice centromérico); si ocurre dentro de un solo brazo sin incluir el centrómero es PARACÉNTRICA.",
+                mech: "Doble rotura bicatenaria, torsión de 180° del bucle cromosómico y posterior ligación errónea.",
+                clinical: "Habitualmente equilibrada en el portador; riesgo de recombinación con gametos con duplicaciones y deleciones.",
+                caption: "Inversión pericéntrica con cambio de posición del centrómero",
+                svg: `
+                    <svg width="180" height="150" viewBox="0 0 180 150" class="overflow-visible">
+                        <g transform="translate(40, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#64748b">Normal</text>
+                            <rect x="5" y="15" width="20" height="25" rx="4" fill="#3b82f6"></rect>
+                            <circle cx="15" cy="45" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="50" width="20" height="55" rx="4" fill="#10b981"></rect>
+                            <text x="15" y="30" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">A</text>
+                            <text x="15" y="75" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">B</text>
+                        </g>
+                        <path d="M 75 75 L 105 75" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"></path>
+                        <g transform="translate(120, 10)">
+                            <text x="15" y="-2" text-anchor="middle" font-size="9" font-weight="bold" fill="#8b5cf6">Inversión (180°)</text>
+                            <rect x="5" y="15" width="20" height="40" rx="4" fill="#10b981"></rect>
+                            <circle cx="15" cy="60" r="5" fill="#1e293b"></circle>
+                            <rect x="5" y="65" width="20" height="40" rx="4" fill="#3b82f6"></rect>
+                            <text x="15" y="35" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">B</text>
+                            <text x="15" y="85" text-anchor="middle" font-size="8" fill="#fff" font-weight="bold">A</text>
+                        </g>
+                    </svg>
+                `
+            },
+            tra: {
+                tag: "Translocación Cromosómica",
+                title: "Translocación Recíproca y Robertsoniana",
+                iscn: "$45,XX,\\text{der}(14;21)(\\text{q}10;\\text{q}10)$",
+                desc: "Intercambio de segmentos entre cromosomas no homólogos. La translocación Robertsoniana es exclusiva de los cromosomas acrocéntricos (13, 14, 15, 21 y 22): los brazos largos (q) se fusionan en el centrómero y se pierden los brazos cortos (p) satelitales, originando 45 cromosomas en portadores sanos.",
+                mech: "Fusión céntrica de acrocéntricos o rotura doble con intercambio recíproco de fragmentos heterólogos.",
+                clinical: "Causa del Síndrome de Down familiar o translocacional por segregar gametos no balanceados con trisomía 21.",
+                caption: "Fusión céntrica de brazos largos q de cromosomas 14 y 21",
+                svg: `
+                    <svg width="180" height="150" viewBox="0 0 180 150" class="overflow-visible">
+                        <g transform="translate(30, 15)">
+                            <text x="10" y="-3" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">14</text>
+                            <circle cx="10" cy="18" r="4" fill="#1e293b"></circle>
+                            <rect x="3" y="22" width="14" height="65" rx="3" fill="#f59e0b"></rect>
+                        </g>
+                        <g transform="translate(60, 25)">
+                            <text x="10" y="-3" text-anchor="middle" font-size="8" font-weight="bold" fill="#64748b">21</text>
+                            <circle cx="10" cy="18" r="4" fill="#1e293b"></circle>
+                            <rect x="3" y="22" width="14" height="40" rx="3" fill="#3b82f6"></rect>
+                        </g>
+                        <path d="M 85 65 L 105 65" stroke="#94a3b8" stroke-width="2" stroke-dasharray="3,3"></path>
+                        <g transform="translate(120, 15)">
+                            <text x="15" y="-3" text-anchor="middle" font-size="8" font-weight="bold" fill="#436600">der(14;21)</text>
+                            <circle cx="15" cy="18" r="5" fill="#1e293b"></circle>
+                            <rect x="8" y="23" width="14" height="65" rx="3" fill="#f59e0b"></rect>
+                            <rect x="8" y="88" width="14" height="40" rx="3" fill="#3b82f6"></rect>
+                            <text x="15" y="55" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold">14q</text>
+                            <text x="15" y="110" text-anchor="middle" font-size="7" fill="#fff" font-weight="bold">21q</text>
+                        </g>
+                    </svg>
+                `
+            }
+        };
+
+        function selectStructuralType(type) {
+            ['del', 'dup', 'inv', 'tra'].forEach(t => {
+                const card = document.getElementById('card-' + t);
+                if (t === type) {
+                    card.className = "cursor-pointer bg-white border-2 border-accent rounded-2xl p-4 shadow-sm transition hover:shadow-md";
+                } else {
+                    card.className = "cursor-pointer bg-white border-2 border-gray-200 rounded-2xl p-4 shadow-sm transition hover:shadow-md";
+                }
+            });
+
+            const data = structuralData[type];
+            document.getElementById('detail-tag').innerText = data.tag;
+            document.getElementById('detail-title').innerHTML = data.title;
+            document.getElementById('detail-iscn').innerText = data.iscn;
+            document.getElementById('detail-desc').innerHTML = data.desc;
+            document.getElementById('detail-mech').innerHTML = data.mech;
+            document.getElementById('detail-clinical').innerHTML = data.clinical;
+            document.getElementById('svg-caption').innerText = data.caption;
+            document.getElementById('svg-diagram-container').innerHTML = data.svg;
+
+            renderLatex();
+        }
+
+        // Module 3: Nondisjunction simulation
+        function simulateNondisjunction(phase) {
+            const m1Btn = document.getElementById('nd-m1');
+            const m2Btn = document.getElementById('nd-m2');
+            const resultBox = document.getElementById('nd-result');
+
+            if (phase === 'm1') {
+                m1Btn.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-accent text-white transition shadow-xs";
+                m2Btn.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                resultBox.innerHTML = `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-gray-800 text-xs sm:text-sm">Fallo en Meiosis I: No se separan los Cromosomas Homólogos</h4>
+                            <span class="text-[10px] font-bold text-rose-700 bg-rose-50 px-2 py-0.5 rounded border border-rose-200">100% Gametos Anómalos</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                            Ambos cromosomas homólogos migran juntos hacia el mismo polo celular. Al finalizar la meiosis, la totalidad de los gametos producidos tendrán alteraciones en su dotación cromosómica.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="p-3 bg-accent-light rounded-xl border border-accent/20">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 1</span>
+                            <span class="text-sm font-mono font-bold text-accent my-1 block">n + 1</span>
+                            <span class="text-[10px] text-gray-500 block">Disómico (Trisomía $2n+1$)</span>
+                        </div>
+                        <div class="p-3 bg-accent-light rounded-xl border border-accent/20">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 2</span>
+                            <span class="text-sm font-mono font-bold text-accent my-1 block">n + 1</span>
+                            <span class="text-[10px] text-gray-500 block">Disómico (Trisomía $2n+1$)</span>
+                        </div>
+                        <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 3</span>
+                            <span class="text-sm font-mono font-bold text-rose-700 my-1 block">n - 1</span>
+                            <span class="text-[10px] text-gray-500 block">Nulisómico (Monosomía $2n-1$)</span>
+                        </div>
+                        <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 4</span>
+                            <span class="text-sm font-mono font-bold text-rose-700 my-1 block">n - 1</span>
+                            <span class="text-[10px] text-gray-500 block">Nulisómico (Monosomía $2n-1$)</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-amber-50 rounded-xl border border-amber-200 text-xs text-amber-900 flex items-center gap-2">
+                        <i class="fa-solid fa-triangle-exclamation text-amber-600"></i>
+                        <span><strong>Conclusión de Examen:</strong> La no disyunción en Meiosis I produce un <strong>50% de gametos disómicos ($n+1$)</strong> y un <strong>50% nulisómicos ($n-1$)</strong>. No se genera ningún gameto normal.</span>
+                    </div>
+                `;
+            } else {
+                m2Btn.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-accent text-white transition shadow-xs";
+                m1Btn.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-semibold rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200 transition";
+                resultBox.innerHTML = `
+                    <div class="p-4 bg-slate-50 rounded-xl border border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-gray-800 text-xs sm:text-sm">Fallo en Meiosis II: No se disocian las Cromátidas Hermanas</h4>
+                            <span class="text-[10px] font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">50% Gametos Normales</span>
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1 leading-relaxed">
+                            La Meiosis I transcurre de forma regular. El error ocurre en una de las células hijas secundarias al no desunirse las cromátidas hermanas durante la anafase II.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 1</span>
+                            <span class="text-sm font-mono font-bold text-emerald-700 my-1 block">n</span>
+                            <span class="text-[10px] text-gray-500 block">Normal Euploide ($25\\%$)</span>
+                        </div>
+                        <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 2</span>
+                            <span class="text-sm font-mono font-bold text-emerald-700 my-1 block">n</span>
+                            <span class="text-[10px] text-gray-500 block">Normal Euploide ($25\\%$)</span>
+                        </div>
+                        <div class="p-3 bg-accent-light rounded-xl border border-accent/20">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 3</span>
+                            <span class="text-sm font-mono font-bold text-accent my-1 block">n + 1</span>
+                            <span class="text-[10px] text-gray-500 block">Disómico ($25\\%$)</span>
+                        </div>
+                        <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+                            <span class="text-xs font-bold text-gray-700 block">Gameto 4</span>
+                            <span class="text-sm font-mono font-bold text-rose-700 my-1 block">n - 1</span>
+                            <span class="text-[10px] text-gray-500 block">Nulisómico ($25\\%$)</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200 text-xs text-emerald-900 flex items-center gap-2">
+                        <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                        <span><strong>Conclusión de Examen:</strong> En Meiosis II se obtienen un <strong>50% de gametos normales ($n$)</strong>, un <strong>25% disómicos ($n+1$)</strong> y un <strong>25% nulisómicos ($n-1$)</strong>.</span>
+                    </div>
+                `;
+            }
+            renderLatex();
+        }
+
+        // Module 4: Banding data & selection
+        const bandingData = {
+            g: {
+                badge: "Estándar Clínico",
+                title: "Bandeo G (Giemsa)",
+                prep: "Pretratamiento: Tripsina + Tinción Giemsa",
+                desc: "Es la técnica citogenética universalmente más empleada para análisis de cariotipo de rutina. El tratamiento enzimático controlado con tripsina desnaturaliza parcialmente las proteínas no histónicas cromosómicas, permitiendo que el colorante Giemsa se una preferentemente a regiones ricas en adenina-timina.",
+                dark: "Ricas en pares de bases $\\text{A-T}$. ADN condensado (heterocromatina), pocos genes activos y replicación tardía en fase S.",
+                light: "Ricas en pares $\\text{G-C}$. Eucromatina descondensada, alta densidad de genes activos y replicación temprana.",
+                visualLabel: "Bandas A-T (Oscuras) / G-C (Claras)",
+                stripes: [
+                    'bg-gray-900 h-3', 'bg-gray-800 h-6', 'bg-gray-300 h-2',
+                    'bg-gray-900 h-4', 'bg-gray-400 h-2', 'bg-gray-900 h-7', 'bg-gray-300 h-3'
+                ]
+            },
+            q: {
+                badge: "Fluorescencia UV",
+                title: "Bandeo Q (Quinacrina)",
+                prep: "Fluorocromo: Mostaza de Quinacrina (Luz UV)",
+                desc: "Primer método de bandeo cromosómico ideado históricamente (Caspersson, 1970). Requiere microscopía de fluorescencia. Las zonas brillantes fluorescentes coinciden exactamente con las bandas oscuras del bandeo G y son muy útiles para identificar polimorfismos del cromosoma Y.",
+                dark: "Bandas muy fluorescentes (brillantes): regiones con alta proporción de pares $\\text{A-T}$.",
+                light: "Bandas apagadas o de baja fluorescencia: correspondientes a secuencias ricas en $\\text{G-C}$.",
+                visualLabel: "Fluorescencia Brillante (A-T)",
+                stripes: [
+                    'bg-yellow-400 h-3 shadow-xs', 'bg-yellow-300 h-6 shadow-xs', 'bg-slate-800 h-2',
+                    'bg-yellow-400 h-4 shadow-xs', 'bg-slate-700 h-2', 'bg-yellow-300 h-7 shadow-xs', 'bg-slate-800 h-3'
+                ]
+            },
+            r: {
+                badge: "Patrón Reverso",
+                title: "Bandeo R (Reverso)",
+                prep: "Desnaturalización Térmica ($87^\\circ\\text{C}$) + Giemsa",
+                desc: "Se basa en someter a los cromosomas a una temperatura elevada en solución salina antes de teñir. Al ser los pares A-T menos termoestables (unidos por 2 puentes de hidrógeno) se desnaturalizan primero, dejando intactas las regiones ricas en G-C (3 puentes de hidrógeno). Excelente para estudiar los telómeros.",
+                dark: "Ricas en pares $\\text{G-C}$, tiñen intensamente los extremos de los brazos cromosómicos (telómeros).",
+                light: "Ricas en pares $\\text{A-T}$, desnaturalizadas por el calor y decoloradas.",
+                visualLabel: "Bandas G-C (Telómeros Oscuros)",
+                stripes: [
+                    'bg-gray-300 h-3', 'bg-gray-200 h-6', 'bg-gray-900 h-2',
+                    'bg-gray-300 h-4', 'bg-gray-800 h-2', 'bg-gray-200 h-7', 'bg-gray-900 h-3'
+                ]
+            },
+            c: {
+                badge: "Heterocromatina Constitutiva",
+                title: "Bandeo C (Centromérico)",
+                prep: "Tratamiento con Álcali (Ba(OH)₂) + Calor + Giemsa",
+                desc: "Técnica altamente selectiva diseñada para teñir la heterocromatina constitutiva. Destaca intensamente los centrómeros de todos los cromosomas y los bloques heterocromáticos de los brazos largos de los cromosomas 1, 9, 16 y la porción distal de Yq.",
+                dark: "Centrómeros y heterocromatina altamente repetitiva (ADN satélite).",
+                light: "Todos los brazos cromosómicos eucromáticos aparecen descoloridos o en silueta.",
+                visualLabel: "Heterocromatina Centromérica",
+                stripes: [
+                    'bg-gray-200 h-8', 'bg-gray-900 h-8 border border-white', 'bg-gray-200 h-16'
+                ]
+            }
+        };
+
+        function selectBanding(type) {
+            ['g', 'q', 'r', 'c'].forEach(t => {
+                const btn = document.getElementById('band-btn-' + t);
+                if (t === type) {
+                    btn.className = "p-4 rounded-2xl border-2 border-accent bg-accent-light text-left transition shadow-xs";
+                    btn.querySelector('span').className = "text-[10px] font-bold uppercase text-accent block";
+                } else {
+                    btn.className = "p-4 rounded-2xl border-2 border-gray-200 bg-white text-left transition hover:border-gray-300";
+                    btn.querySelector('span').className = "text-[10px] font-bold uppercase text-gray-500 block";
+                }
+            });
+
+            const data = bandingData[type];
+            document.getElementById('band-badge').innerText = data.badge;
+            document.getElementById('band-title').innerText = data.title;
+            document.getElementById('band-prep').innerText = data.prep;
+            document.getElementById('band-desc').innerHTML = data.desc;
+            document.getElementById('band-dark').innerHTML = data.dark;
+            document.getElementById('band-light').innerHTML = data.light;
+            document.getElementById('band-visual-label').innerText = data.visualLabel;
+
+            const visContainer = document.getElementById('band-visual');
+            visContainer.innerHTML = '';
+            data.stripes.forEach(cls => {
+                const bar = document.createElement('div');
+                bar.className = `w-full rounded-xs ${cls}`;
+                visContainer.appendChild(bar);
+            });
+
+            renderLatex();
+        }
+
+        // Initialize on window load
+        window.onload = function() {
+            switchTab('tab-estructurales');
+            selectStructuralType('del');
+            selectBanding('g');
+            renderLatex();
+        };
+    </script>
+</body>
+</html>
